@@ -335,6 +335,48 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="panel panel-primary">
+                <div class="panel-heading">Words In Difficulty Buckets</div>
+                <div class="panel-body">
+                </div>
+                <table class="table table-list">
+                  <thead>
+                    <tr>
+                      <th>Word</th>
+                      <th>Difficulty Level</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(word, difficultyLevel) in opctrl.wordDifficultyHash | limitTo : 4" ng-switch="difficultyLevel">
+                      <td>{{word}}</td>
+                      <span>
+                        <td ng-switch-when='h'>Hard</td>
+                        <td ng-switch-when='n'>Normal</td>
+                        <td ng-switch-when='e'>Easy</td>
+                      </span>
+                      <td>
+                        <span class="pull-right">
+                          <button class="btn btn-warning" ng-click="opctrl.removeWordFromDifficultyBucket(word)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- [Implement] Pagination for difficultyBuckets -->
+
+                <div class="text-center">
+                  <ul class="pagination">
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="tab-pane" id="contribute">
