@@ -340,6 +340,18 @@
               <div class="panel panel-primary">
                 <div class="panel-heading">Words In Difficulty Buckets</div>
                 <div class="panel-body">
+                  <div class="input-group">
+                    <input type="text" ng-model="opctrl.newDifficultyBucketWord" class="form-control">
+                    <span class="input-group-addon">:</span>
+                    <select ng-model="opctrl.newDifficultyBucketWordLevel" class="form-control">
+                      <option>Easy</option>
+                      <option>Normal</option>
+                      <option>Hard</option>
+                    </select>
+                    <span class="input-group-btn">
+                      <button class="btn btn-danger" type="submit" ng-click="opctrl.addWordToDifficultyBucket()">Add</button>
+                    </span>
+                  </div>
                 </div>
                 <table class="table table-list">
                   <thead>
@@ -350,7 +362,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="(word, difficultyLevel) in opctrl.wordDifficultyHash | limitTo : 4" ng-switch="difficultyLevel">
+                    <tr ng-repeat="word in opctrl.difficultyBucketsWords | startFrom : opctrl.difficultyBucketsWordPage*4 | limitTo : 4" ng-switch="opctrl.difficultyBuckets[word]">
                       <td>{{word}}</td>
                       <span>
                         <td ng-switch-when='h'>Hard</td>
@@ -367,11 +379,11 @@
                     </tr>
                   </tbody>
                 </table>
-
-                <!-- [Implement] Pagination for difficultyBuckets -->
-
                 <div class="text-center">
                   <ul class="pagination">
+                    <li ng-repeat="x in opctrl.hashRange(opctrl.difficultyBuckets) track by $index" class="pointer" ng-class="{'active': opctrl.difficultyBucketsWordPage === $index}">
+                      <a ng-click="opctrl.difficultyBucketsWordPage = $index">{{$index + 1}}</a>
+                    </li>
                   </ul>
                 </div>
               </div>
